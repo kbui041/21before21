@@ -1,150 +1,211 @@
-body {
-    background-color: #fafafa;
-    margin: 0;
-    padding: 40px 20px;
-    font-family: 'Inter', sans-serif;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Inter', sans-serif;
-}
-
-main {
-    text-align: center;
-    max-width: 600px;
-    margin-bottom: 40px;
-}
-
-h1 {
-    font-size:32px;
-    margin-bottom: 16px;
-}
-
-p{
-    font-size:16px;
-    line-height:1.6;
-    color:#666;
-}
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
+:root {
+    --background-color: #ffffff;
+    --text-color: #1e1e1e;
+    --secondary-text-color: #666;
+    --accent-color: #ff4da6;
+    --button-hover: rgba(255, 255, 255, 0.16);
+    --progress-bar-fill: #ff4da6;
+    --progress-bar-background: rgba(0,0,0,0.1)
   }
-
-li {
-    display: flex;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-li:hover {
-    background-color: #f5f5f5;
-    cursor: pointer;
-}
-
-.check-icon {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    margin-right: 12px;
-    position: relative;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-  }
-
-.completed {
-    color:#aaa;
-    text-decoration: line-through;
-    background-color: #e7f9ed;
-    animation: bounce 0.4s ease;
-}
-
-.completed .check-icon {
-    background-color: #4caf50;
-    border-color: #4caf50;
-}
   
-
-.completed .check-icon::after {
-    content: '';
-    position: absolute;
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    top: 2px;
-    left: 6px;
-    transform: rotate(45deg);
-    animation: pop 0.3s ease;
+  [data-theme="dark"] {
+    --background-color: #1e1e1e;
+    --text-color: #f0f0f0;
+    --secondary-text-color: #aaa;
+    --accent-color: #ff6fb5;
+    --button-hover: rgba(255, 255, 255, 0.16);
+    --progress-bar-fill: #ff6fb5;
+    --progress-bar-background: rgba(255, 255, 255, 0.15);
   }
-
-li:hover .check-icon{
-    border-color: #4caf50
-}
-
-@keyframes pop {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-    50% {
-      transform: scale(1.2);
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    line-height: 1.6;
+  }
+  
+  
+  main {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInPage 0.8s ease forwards;
+    animation-delay: 0.2s;
+  }
+  
+  #theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: var(--secondary-text-color);
+    margin: 12px 0;
+  }
+  
+  #countdown-message {
+    margin-top: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .button {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--accent-color);
+    padding: 12px 24px;
+    border: 1px solid var(--accent-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .button:hover {
+    background: var(--button-hover);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .button:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .button.badge {
+    cursor: default;
+    pointer-events: none;
+    font-weight: 600;
+  }
+  
+  #countdown-wrapper,
+  #random-task-wrapper,
+  #progress-wrapper {
+    margin-top: 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInPage 0.8s ease forwards;
+    animation-delay: 0.4s;
+  }
+  
+  #random-task-display {
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  #random-task-display.animate {
+    opacity: 1;
+  }
+  
+  #checklist {
+    list-style: none;
+    margin-top: 40px;
+  }
+  
+  #checklist li {
+    position: relative;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInItem 0.6s ease forwards;
+    margin: 16px 0;
+    padding: 16px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  #checklist li.completed {
+    text-decoration: line-through;
+    color: var(--secondary-text-color);
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  #checklist li.highlight {
+    background-color: rgba(255, 77, 166, 0.3);
+  }
+  
+  .check-icon::before {
+    content: "⬜";
+    transition: content 0.3s ease;
+  }
+  
+  .completed .check-icon::before {
+    content: "✅";
+  }
+  
+  #progress-bar-container {
+    background: var(--progress-bar-background);
+    border-radius: 12px;
+    overflow: hidden;
+    height: 12px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  #progress-bar {
+    background-color: var(--progress-bar-fill);
+    height: 100%;
+    width: 0;
+    transition: width 0.8s ease-in-out;
+  }
+  
+  #progress-text {
+    margin-top: 10px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-align: center;
+  }
+  
+  @keyframes fadeInPage {
+    to {
       opacity: 1;
+      transform: translateY(0);
     }
-    100% {
-      transform: scale(1);
+  }
+  
+  @keyframes fadeInItem {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-}
-
-@keyframes bounce {
-    0% {
-        transform: scale(1);
-    }
-    30% {
-        transform: scale(1.05);
-    }
-    60% {
-        transform: scale(0.98);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-#progress-container {
-    width:100%;
-    max-width:400px;
-    height:10px;
-    background-color: #eee;
-    border-radius:5px;
-    margin-top:40px;
-    overflow:hidden;
-}
-
-#progress-bar {
-    height:100%;
-    width:0%;
-    background-color:#4caf50;
-    transition: width 0.3s ease;
-}
-
-#progress-text {
-    text-align:center;
-    margin-top:8px;
-    font-size:14px;
-    color:#555;
-}
-
-#progress-wrapper {
-    display:flex;
-    flex-direction: column;
-    align-items:center;
-    margin-top:40px;
-    width:100%;
-}
+  }
+  
