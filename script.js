@@ -3,18 +3,35 @@ const checklist = document.getElementById('checklist');
 
 tasks.forEach(function(task) {
 
-
-
   const listItem = document.createElement('li');
+  const icon= document.createElement('span');
+  icon.classList.add('check-icon');
+  const text = document.createTextNode(task);
 
+  listItem.appendChild(icon);
+  listItem.appendChild(text);
 
-  listItem.textContent = task;
-
-
-  checklist.appendChild(listItem);
 
   listItem.addEventListener('click', function() {
     listItem.classList.toggle('completed');
+    updateProgress();
   });
+
+  checklist.appendChild(listItem);
 });
+
+function updateProgress() {
+    const totalTasks = tasks.length;
+    const completedTasks = document.querySelectorAll('.completed').length;
+    const progressPercent = (completedTasks / totalTasks) * 100;
+  
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+  
+    progressBar.style.width = `${progressPercent}%`;
+    progressText.textContent = `${completedTasks} / ${totalTasks} completed`;
+  }
+
+updateProgress();
+
 

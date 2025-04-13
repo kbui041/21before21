@@ -1,0 +1,150 @@
+body {
+    background-color: #fafafa;
+    margin: 0;
+    padding: 40px 20px;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+main {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size:32px;
+    margin-bottom: 16px;
+}
+
+p{
+    font-size:16px;
+    line-height:1.6;
+    color:#666;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+li {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+li:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.check-icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 12px;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+.completed {
+    color:#aaa;
+    text-decoration: line-through;
+    background-color: #e7f9ed;
+    animation: bounce 0.4s ease;
+}
+
+.completed .check-icon {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+  
+
+.completed .check-icon::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    top: 2px;
+    left: 6px;
+    transform: rotate(45deg);
+    animation: pop 0.3s ease;
+  }
+
+li:hover .check-icon{
+    border-color: #4caf50
+}
+
+@keyframes pop {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1.05);
+    }
+    60% {
+        transform: scale(0.98);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#progress-container {
+    width:100%;
+    max-width:400px;
+    height:10px;
+    background-color: #eee;
+    border-radius:5px;
+    margin-top:40px;
+    overflow:hidden;
+}
+
+#progress-bar {
+    height:100%;
+    width:0%;
+    background-color:#4caf50;
+    transition: width 0.3s ease;
+}
+
+#progress-text {
+    text-align:center;
+    margin-top:8px;
+    font-size:14px;
+    color:#555;
+}
+
+#progress-wrapper {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    margin-top:40px;
+    width:100%;
+}
